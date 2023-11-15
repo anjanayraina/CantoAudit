@@ -38,12 +38,12 @@ contract Market is ERC1155, Ownable2Step {
         address creator; // Creator of the share
         string metadataURI; // URI of the metadata
     }
-
+    // @audit parallel data structures used in this one , shareData stores the bonding curve as well as the mapping of shareBondingCurve does that 
     /// @notice Stores the data for a given share ID
     mapping(uint256 => ShareData) public shareData;
 
     /// @notice Stores the bonding curve per share
-    mapping(uint256 => address) public shareBondingCurves;
+    mapping(uint256 => address) public shareBondingCurves; // @audit this datastructure has not even been used 
 
     /// @notice Bonding curves that can be used for shares
     mapping(address => bool) public whitelistedBondingCurves;
