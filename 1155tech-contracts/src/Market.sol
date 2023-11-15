@@ -124,11 +124,9 @@ contract Market is ERC1155, Ownable2Step {
         shareData[id].creator = msg.sender;
         shareData[id].metadataURI = _metadataURI;
         emit ShareCreated(id, _shareName, _bondingCurve, msg.sender);
-    }
 
     /// @notice Returns the price and fee for buying a given number of shares.
-    /// @param _id The ID of the share
-    /// @param _amount The number of shares to buy.
+    /// @param _id The ID of the share     /// @param _amount The number of shares to buy.
     function getBuyPrice(uint256 _id, uint256 _amount) public view returns (uint256 price, uint256 fee) {
         // If id does not exist, this will return address(0), causing a revert in the next line
         address bondingCurve = shareData[_id].bondingCurve;
