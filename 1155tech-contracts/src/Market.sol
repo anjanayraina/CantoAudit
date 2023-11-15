@@ -88,7 +88,7 @@ contract Market is ERC1155, Ownable2Step {
     /// @notice Initiates CSR on main- and testnet
     /// @param _uri ERC1155 Base URI
     /// @param _paymentToken Address of the payment token
-    constructor(string memory _uri, address _paymentToken) ERC1155(_uri) Ownable() {
+    constructor(string memory _uri, address _paymentToken) ERC1155(_uri) Ownable() // @audit no way to update the erc1155 base uri, its said that it can be used as a profile pic. So users might want to upfate the uri {
         token = IERC20(_paymentToken);
         if (block.chainid == 7700 || block.chainid == 7701) {
             // Register CSR on Canto main- and testnet
@@ -102,7 +102,7 @@ contract Market is ERC1155, Ownable2Step {
     /// @param _bondingCurve Address of the bonding curve
     /// @param _newState True if whitelisted, false if not
     function changeBondingCurveAllowed(address _bondingCurve, bool _newState) external onlyOwner {
-        require(whitelistedBondingCurves[_bondingCurve] != _newState, "State already set");
+        require(whitelistedBondingCurves[_bondingCurve] != _newState, "State already set"); // no need for this check 
         whitelistedBondingCurves[_bondingCurve] = _newState;
         emit BondingCurveStateChange(_bondingCurve, _newState);
     }
